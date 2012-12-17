@@ -1,0 +1,373 @@
+/*! 
+	style.scss
+	
+	Author: Declan Norton <decnorton.com>
+*/
+
+/* Imports */
+
+@import "_normalize";
+@import "_boilerplate";
+
+@import "compass/css3/box-shadow";
+@import "compass/css3/box-sizing";
+@import "compass/css3/border-radius";
+@import "compass/css3/images";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+@import "compass/utilities/general/clearfix";
+@import "compass/css3/filter";
+
+/* Variables */
+
+$maxWidth : 960px;
+$background : #efefef;
+
+/* Style */
+
+* {
+	@include box-sizing(border-box);
+}
+
+html,
+body {
+	height:100%;
+	padding:0;
+	margin:0;
+	font-family: 'Open Sans', sans-serif;
+}
+
+body {
+	background:$background;
+	color:#222;
+}
+
+.wrapper {
+	max-width:$maxWidth;
+	margin:0 auto;
+	padding:10px;
+}
+
+.header {
+	padding:50px 10px;
+	text-align: center;
+	
+	h1 {
+		margin:0;
+		padding:0;
+		font-size:42px;
+	}
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Signika Negative', sans-serif;
+	text-shadow:0 1px 1px white;
+}
+
+.new-task {
+	width:100%;
+	
+	input[type="text"] {
+		width:100%;
+		padding:10px;
+		
+		outline:none;		
+		background:transparent;
+		
+		font-size:18px;
+		
+		border:1px solid #cdcdcd;
+		@include border-radius(3px);
+		
+		@include transition(all 0.2s);
+		
+		&:-moz-placeholder {
+			@include transition(color 0.2s);
+		}
+		&::-webkit-input-placeholder {
+			@include transition(color 0.2s);
+		}
+
+		
+		&:focus {
+			border-color:#aaa;
+			
+			&:-moz-placeholder {
+			   color: #cdcdcd;
+			}
+			&::-webkit-input-placeholder {
+			   color: #cdcdcd;
+			}
+
+		}
+	}	
+}
+
+.tasks {
+	margin:0;
+	padding:0;
+	
+	list-style:none;
+	
+	li {
+		position:relative;
+		display:block;
+		margin:10px 0;
+		padding:8px;
+		height:46px;
+		
+		background:#f8f8f8;
+		border-left:2px solid transparent;
+		
+		@include border-radius(3px);
+		@include box-shadow(0 1px 5px rgba(black, 0.05));
+		
+		cursor: default;
+		-webkit-user-select: none;
+		
+		@include transition-property(border-color, background);
+		@include transition-duration(0.2s);
+		
+		.status,
+		.name {
+			display:inline-block;
+		}
+		
+		.status {
+			margin:5px;
+			width:20px;
+			height:20px;
+		}
+		
+		.content {
+			position:absolute;
+			top:0; left:40px;
+			bottom:0; right: 40px;
+			padding:12px;
+			
+			overflow: hidden;
+			text-overflow: ellipsis;
+			
+			&:focus {
+				outline:none;
+			}
+		}
+		
+		.remove {
+			position: absolute;
+			top:50%;
+			right:10px;
+			margin-top:-10px;
+			
+			width:20px;
+			height:20px;
+			
+			font-size:20px;
+			line-height:20px;
+			
+			cursor:pointer;
+		}
+		
+		&.done {
+			background:#eee;
+			color:#999;
+			border-left-color:lime !important;
+			@include box-shadow(0 1px 5px rgba(black, 0.05));
+		}
+		
+		&.editing {
+			background:white;
+			-webkit-user-select:auto;
+		}
+	}
+}
+
+.button-import,
+.button-export {
+	cursor: pointer;
+	font-size:14px;
+}
+
+.zilch {
+	text-align: center;
+	
+	display:block;
+	margin:10px 0;
+	padding:8px;
+	
+	background:#eee;
+	
+	@include border-radius(3px);
+	@include box-shadow(0 1px 5px rgba(black, 0.05));
+	
+	cursor: default;
+	-webkit-user-select: none;	
+}
+
+.footer {
+	text-align:center;
+	font-size:14px;
+	a {
+		color:#222;
+		text-decoration: none;
+		&:hover {
+			border-bottom: 1px dotted #a4a4a4;
+		}
+	}
+}
+
+.or {
+	margin:5px 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.download {
+	display:block;
+	width:100%;
+	margin-top:20px;
+	padding:10px;
+	background:transparent;
+	border:1px solid #cdcdcd;
+	border-bottom-color:#bbb;
+	color:#444;
+	font-size:14px;
+	text-transform: uppercase;
+	text-align: center;
+	cursor:pointer;
+	
+	@include background(linear-gradient(#fff, #efefef));
+	@include border-radius(3px);
+	
+	&:active {
+		@include background(linear-gradient(#efefef, #dfdfdf));
+	}
+}
+
+
+/* Modal */
+
+.wrapper {
+	@include filter(none);
+	@include transition(all 0.3s);
+	
+	body.modal & {
+		@include filter(blur(2px));
+	}
+}
+
+.modal-cover {
+	position:fixed;
+	top:0; left:0; bottom:0; right:0;
+	
+	background:rgba(black, 0);
+	@include transition(background 0.2s);
+
+	visibility: hidden;
+	body.modal & {
+		visibility:visible;
+		
+		background:rgba(black, 0.3);
+	}
+}
+
+.modal-content {
+	position:fixed;
+	top:20px;
+	left:50%;
+	margin-left:-240px;
+	width:480px;
+	background:white;
+	padding:20px;
+	
+	@include box-shadow(0 1px 3px rgba(black, 0.2));
+	@include transition-property(transform, opacity);
+	@include transition-duration(0.2s);
+	
+	
+	visibility: hidden;
+	opacity:0;
+	
+	@include transform(scale(1.2));
+	
+	body.modal & {
+		visibility:visible;
+		opacity:1;
+		@include transform(scale(1));
+
+	}
+	
+	h2 {
+		margin:0;
+	}
+	
+	textarea {
+		display:block;
+		width:100%;
+		
+		padding:10px;
+		
+		outline:none;		
+		background:transparent;
+		
+		font-size:12px;
+		
+		border:1px solid #cdcdcd;
+		@include border-radius(3px);
+	}
+	
+	input[type="file"] {
+		display:block;
+		width:100%;
+		
+		padding:10px;
+		
+		outline:none;		
+		background:transparent;
+		
+		font-size:12px;
+		
+		border:1px solid #cdcdcd;
+		@include border-radius(3px);
+	}
+	
+	&.export {
+		form {
+			height:400px;
+		}
+		textarea {
+			height: 335px;
+		}
+	}
+	
+	input[type="submit"] {
+		display:block;
+		width:100%;
+		margin-top:20px;
+		padding:10px;
+		background:transparent;
+		border:1px solid #cdcdcd;
+		border-bottom-color:#bbb;
+		color:#444;
+		font-size:14px;
+		text-transform: uppercase;
+		
+		@include background(linear-gradient(#fff, #efefef));
+		@include border-radius(3px);
+		
+		&:active {
+			@include background(linear-gradient(#efefef, #dfdfdf));
+		}
+	}
+}
+
+
+
+
+input,
+textarea {
+	font-family: 'Open Sans', sans-serif;
+}
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<title>Todo</title>
+	<meta name="viewport" content="width=device-width">
+	
+	<link rel="stylesheet" href="css/style.css">
+	<link href="http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600|Open+Sans:400,700" rel="stylesheet" type="text/css">
+	<script src="js/vendor/modernizr-2.6.1.min.js"></script>
+</head>
+<body>
+
+<div class="wrapper">
+	<header class="header">
+		<h1>Todo</h1>
+	</header>
+	
+	<div class="content">
+		<section>
+			<form method="POST" class="new-task">
+				<input type="text" name="thing" placeholder="New Task">
+			</form>
+		</section>
+		<section class="list">
+			<h2>Tasks</h2>
+			<ul class="tasks"></ul>
+			<aside class="zilch">
+				No tasks yet!
+			</aside>
+		</section>
+	</div>
+	<footer class="footer">
+		<a class="button-import">Import</a> &bull;
+		<a class="button-export">Export</a> <br>
+		<a href="http://decnorton.com/">&copy; 2012 Dec Norton</a>
+	</footer>
+</div>
+
+<div class="modal-cover"></div>
+<aside class="modal-content">
+	<h2 class="title"></h2>
+	<p class="description"></p>
+	<form></form>
+</aside>
+
+    
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
+	<script src="js/main.min.js"></script>
+
+</body>
+</html>
